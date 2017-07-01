@@ -1,4 +1,4 @@
-Some erlang util written by ChaoXu (that's me!)
+Some python util written by ChaoXu (that's me!)
 
 * autochat_en, auto chat robot implemented based on pyaiml and could be used on WeChat.
 
