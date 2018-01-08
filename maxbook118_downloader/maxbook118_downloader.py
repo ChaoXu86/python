@@ -13,6 +13,8 @@ from reportlab.pdfgen import canvas
 # logger
 LOGGER='dumpbook118'
 
+# default wait interval when loading each page of document.
+# When document could not be downloaded properly, try increase this internval
 DEFAULT_WAIT_INTERVAL=2.5
 
 def init_logging(verbose):    
@@ -145,7 +147,7 @@ def main():
         dest="wait_interval",
         type=int,
         default=DEFAULT_WAIT_INTERVAL,
-        help="wait seconds(default 2s) when caching each document page, the value depends on network connection"
+        help="wait seconds(default 2.5s) when caching each document page, the value depends on network connection"
     )   
     parser.add_argument(
         "--debug",
