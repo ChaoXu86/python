@@ -4,4 +4,6 @@ Some python util written by ChaoXu (that's me!)
 
 * updateConf, python based configuration database.
 
+* maxbook118_downloader, tools to download books from max.book118.com
+
 Licensed under 'The Unlicense'
