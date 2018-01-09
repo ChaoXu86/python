@@ -13,8 +13,6 @@ from reportlab.pdfgen import canvas
 # logger
 LOGGER='dumpbook118'
 
-# default wait interval when loading each page of document.
-# When document could not be downloaded properly, try increase this internval
 DEFAULT_WAIT_INTERVAL=2.5
 
 def init_logging(verbose):    
@@ -75,18 +73,29 @@ def get_images_src(url, wait_interval):
     driver.switch_to.frame(iframeid)
     
     # try load all pages, continue scroll to the end of page 
-    page_id = 0
+    page_id    = 0
+    end_count  = 0
     log.info("loading document, please be patient")
     while(True):
         page_id += 1
         oldScrollHeight = driver.find_element_by_id("pdf").get_property("scrollHeight")
-        log.debug("start to scroll down page {0}.".format(page_id))
+        log.info("start to scroll down page {0}.".format(page_id))
         driver.execute_script('document.getElementById("pdf").scrollTo(0,document.getElementById("pdf").scrollHeight)')
         time.sleep(wait_interval)
         newScrollHeight = driver.find_element_by_id("pdf").get_property("scrollHeight")
         
         if newScrollHeight <= oldScrollHeight:
-            break
+            end_count += 1
+            # page didn't scroll down                    
+            if end_count > 3:
+                # for 3 time, seems no more content  
+                break
+            else:               
+                log.info("scroll down from {0} to {1} failed, try again".format(oldScrollHeight, newScrollHeight))
+                # let's try scroll down again
+                page_id -= 1
+        else:
+            end_count = 0        
     
     # get url of images
     images_src = []
@@ -111,7 +120,7 @@ def generate_pdf(cache_dir):
     log = logging.getLogger(LOGGER)
     nop = 0
     c = canvas.Canvas('download.pdf')
-    images = [image for image in os.listdir(cache_dir) if os.path.isfile(cache_dir + '/' + image) and image[-4:] == ".png"]
+    images = [cache_dir + '/' + image for image in os.listdir(cache_dir) if os.path.isfile(cache_dir + '/' + image) and image[-4:] == ".png"]
     totalnum = len(images)
     
     from reportlab.lib.pagesizes import A4,portrait,landscape
@@ -147,7 +156,7 @@ def main():
         dest="wait_interval",
         type=int,
         default=DEFAULT_WAIT_INTERVAL,
-        help="wait seconds(default 2.5s) when caching each document page, the value depends on network connection"
+        help="wait seconds(default 2s) when caching each document page, the value depends on network connection"
     )   
     parser.add_argument(
         "--debug",
