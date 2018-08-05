@@ -4,4 +4,6 @@ Some erlang util written by ChaoXu (that's me!)
 
 * updateConf, python based configuration database.
 
+* dlx, dancing link algorithm to solve radio allocation problem. 
+
 Licensed under 'The Unlicense'

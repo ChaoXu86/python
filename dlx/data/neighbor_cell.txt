@@ -1,0 +1,7 @@
+CellId,SiteId,PCI,EARFCN,PlanFlag
+cell1,1,1,38400,1
+cell2,2,0,38400,0
+cell3,3,0,38400,1
+cell4,4,2,38400,1
+cell5,5,2,38400,0
+cell6,6,2,38400,1

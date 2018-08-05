@@ -1,0 +1,13 @@
+CellId,CellIdNc,intensity
+cell1,cell2,1
+cell2,cell1,1
+cell2,cell3,1
+cell2,cell5,1
+cell3,cell2,1
+cell3,cell4,1
+cell3,cell5,1
+cell4,cell3,1
+cell5,cell2,1
+cell5,cell3,1
+cell5,cell6,1
+cell6,cell5,1
