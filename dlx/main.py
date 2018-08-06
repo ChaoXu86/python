@@ -6,9 +6,9 @@ import time
 
 # fcn and pci
 fcn = 37900
-pci = 22
+pci = 15
 #fcn = 38400
-#pci = 8
+#pci = 9
 
 # read file
 start_ts = time.clock()

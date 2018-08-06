@@ -195,18 +195,23 @@ class DLXOptimizer(object):
             # no candicates left in column
             return False
         
-        # start withs the column with least number of items
+        # 20180806, there's no unique solution to the problem, 
+        # starting with column hasing least items could cause
+        # infinite loop
+        ## start withs the column with least number of items
+        # node_remove = node_start
+        #min_size    = self.col_size[node_start.col_header]        
+        #while node_start.col_header < self.nodecount - level:                    
+        #    if self.col_size[node_start.col_header] == 0:
+        #        # the column has no solution
+        #        return False
+        #    if self.col_size[node_start.col_header] < min_size:
+        #        min_size    = self.col_size[node_start.col_header]
+        #        node_remove = node_start
+        #    node_start = node_start.right 
+        
         node_remove = node_start
-        min_size    = self.col_size[node_start.col_header]        
-        while node_start.col_header < self.nodecount - level:                    
-            if self.col_size[node_start.col_header] == 0:
-                # the column has no solution
-                return False
-            if self.col_size[node_start.col_header] < min_size:
-                min_size    = self.col_size[node_start.col_header]
-                node_remove = node_start
-            node_start = node_start.right       
-
+        
         # remove nodes of chosen columns from matrix
         # the rows which contains any chosen nodes are also removed from matrix
         self.remove(node_remove)
